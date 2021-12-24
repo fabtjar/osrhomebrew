@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block navbar_brand %}{% endblock %}
+
+{% block content %}
+    <div class="text-center mt-3">
+        <h1>OSR Homebrew</h1>
+        <p>A place to share OSR homebrew content.</p>
+
+        {% if user.is_authenticated %}
+            <p>Signed in as <span class="fw-bold">{{ user.username }}</span>.</p>
+        {% endif %}
+    </div>
+{% endblock %}
