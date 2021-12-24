@@ -14,8 +14,16 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
   {% endif %}
-  <button class="btn btn-primary" type="submit">{% trans 'Logout' %}</button>
+  <button class="btn btn-primary" type="submit" id="logout-button">{% trans 'Logout' %}</button>
 </form>
 
 
+{% endblock %}
+
+{% block extra_body %}
+    <script type="text/javascript">
+        (function () {
+            document.getElementById('logout-button').click();
+        })();
+    </script>
 {% endblock %}
