@@ -5,7 +5,9 @@
 
     <ul>
         {% for monster in monsters %}
-            <li><a href="{{ monster.get_absolute_url }}">{{ monster.name }}</a></li>
+            <a class="btn btn-primary" href="{{ monster.get_absolute_url }}">{{ monster.name }}</a>
         {% endfor %}
     </ul>
+
+    <a class="btn btn-primary" href="{% url 'index' %}">Home</a>
 {% endblock %}

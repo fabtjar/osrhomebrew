@@ -11,6 +11,6 @@
             <p>Signed in as <span class="fw-bold">{{ user.username }}</span>.</p>
         {% endif %}
 
-        <a href="{% url 'monsters:list_all' %}">Monster List</a>
+        <a class="btn btn-primary" href="{% url 'monsters:list_all' %}">Monster List</a>
     </div>
 {% endblock %}
