@@ -23,10 +23,10 @@
             {% endfor %}
         </div>
         {% if monster.image %}
-            <div class="col-lg-6">
+            <div class="col-lg-6 mb-2">
                 <img src="{{ monster.image.url }}" class="img-fluid" alt="{{ monster.name }}">
             </div>
         {% endif %}
     </div>
-    <a class="btn btn-primary" href="{% url 'monsters:list_all' %}">Monster List</a>
+    <a class="btn btn-primary mb-2" href="{% url 'monsters:list_all' %}">Monster List</a>
 {% endblock %}
