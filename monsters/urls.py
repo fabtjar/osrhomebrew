@@ -7,5 +7,5 @@ app_name = 'monsters'
 
 urlpatterns = [
     path('', list_all, name='list_all'),
-    path('<monster_id>/', details, name='details'),
+    path('<username>/<name>/', details, name='details'),
 ]

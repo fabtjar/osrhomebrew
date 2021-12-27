@@ -11,7 +11,13 @@ class Monster(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='monsters')
 
     def get_absolute_url(self):
-        return reverse('monsters:details', kwargs={'monster_id': self.id})
+        return reverse(
+            'monsters:details',
+            kwargs={
+                'username': self.owner.username,
+                'name': self.name,
+            }
+        )
 
     def __str__(self):
         return self.name
