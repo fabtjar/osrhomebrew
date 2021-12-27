@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ monster.name }}</h1>
+    {% if monster.treat_like %}
+        <p>Treat like: {{ monster.treat_like }}</p>
+    {% endif %}
+    {% if monster.special_attacks.all %}
+        <p>Special attacks:
+            {% for special_attack in monster.special_attacks.all %}
+                <strong class="fw-bold d-inline">{{ special_attack.name }}</strong>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        </p>
+    {% endif %}
+    <p>{{ monster.description }}</p>
+    {% for special_attack in monster.special_attacks.all %}
+        <p class="fw-bold">{{ special_attack.name }}:
+            <span class="fw-normal d-inline">{{ special_attack.description }}</span>
+        </p>
+    {% endfor %}
+{% endblock %}
