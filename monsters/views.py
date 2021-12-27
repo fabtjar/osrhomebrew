@@ -9,8 +9,8 @@ def list_all(request):
     return render(request, 'monsters/list_all.html', {'monsters': monsters})
 
 
-def details(request, username, name):
-    monster = get_object_or_404(Monster, owner__username=username, name=name)
+def details(request, monster_id):
+    monster = get_object_or_404(Monster, id=monster_id)
     return render(request, 'monsters/details.html', {'monster': monster})
 
 
