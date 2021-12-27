@@ -7,7 +7,7 @@ class Monster(models.Model):
     name = models.CharField(max_length=50)
     treat_like = models.CharField(max_length=50, blank=True)
     description = models.TextField(max_length=5_000)
-    image = models.ImageField(upload_to='monsters', null=True)
+    image = models.ImageField(upload_to='monsters', blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='monsters')
 
     def get_absolute_url(self):
