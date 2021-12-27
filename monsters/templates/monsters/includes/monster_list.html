@@ -1,0 +1,26 @@
+<div class="row">
+    {% for monster in monsters %}
+        <div class="col-md-6 col-lg-4 p-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a class="stretched-link text-reset text-decoration-none"
+                           href="{{ monster.get_absolute_url }}">
+                            {{ monster.name }}
+                        </a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        {% if monster.special_attacks.all %}
+                            {% for special_attack in monster.special_attacks.all %}
+                                {{ special_attack.name }}{% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <span class="invisible">-</span>
+                        {% endif %}
+                    </h6>
+                    <p class="card-text">{{ monster.get_short_description }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

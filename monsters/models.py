@@ -16,6 +16,11 @@ class Monster(models.Model):
     def __str__(self):
         return self.name
 
+    def get_short_description(self, length=100):
+        if len(self.description) > length:
+            return self.description[:length - 1] + '…'
+        return self.description
+
 
 class SpecialAttack(models.Model):
     name = models.CharField(max_length=50)
