@@ -29,5 +29,8 @@
             </div>
         {% endif %}
     </div>
+    {% if monster.owner == user %}
+        <a class="btn btn-secondary mb-2" href="{% url 'monsters:edit' monster.id %}">Edit</a>
+    {% endif %}
     <a class="btn btn-primary mb-2" href="{% url 'monsters:list_all' %}">Monster List</a>
 {% endblock %}
