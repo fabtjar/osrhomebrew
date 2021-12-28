@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class MonstersConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'monsters'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "monsters"
