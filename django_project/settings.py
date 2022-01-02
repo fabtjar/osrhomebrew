@@ -26,11 +26,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    # 3rd party.
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "crispy_forms",
     "crispy_bootstrap5",
+    # Local.
     "users.apps.UsersConfig",
     "monsters.apps.MonstersConfig",
 ]
@@ -129,6 +131,12 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 LOGIN_URL = "account_login"
 LOGIN_REDIRECT_URL = "/"
+
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 
 MESSAGE_TAGS = {
     messages.DEBUG: "secondary",
