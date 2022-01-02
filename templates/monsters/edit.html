@@ -2,5 +2,5 @@
 
 {% block content %}
     <h1>Edit {{ monster.name }}</h1>
-    <a class="btn btn-secondary mb-2" href="{% url 'monsters:details' monster.id %}">Cancel</a>
+    <a class="btn btn-secondary mb-2" href="{{ monster.get_absolute_url }}">Cancel</a>
 {% endblock %}

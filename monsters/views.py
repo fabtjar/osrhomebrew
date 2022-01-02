@@ -18,12 +18,12 @@ def details(request, monster_id):
 def edit(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
 
-    if monster.owner != request.user:
+    if monster.author != request.user:
         raise PermissionDenied
 
     return render(request, "monsters/edit.html", {"monster": monster})
 
 
-def user_list(request, username):
+def author_list(request, username):
     user = get_object_or_404(get_user_model(), username=username)
     return render(request, "monsters/user_list.html", {"user": user})

@@ -3,5 +3,5 @@
 {% block content %}
     <h1>{{ user }}'s Monsters</h1>
     {% include 'monsters/includes/monster_list.html' with monsters=user.monsters.all %}
-    <a class="btn btn-primary" href="{% url 'monsters:list_all' %}">List All Monsters</a>
+    <a class="btn btn-primary" href="{% url 'monster_list' %}">List All Monsters</a>
 {% endblock %}
