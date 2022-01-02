@@ -9,28 +9,58 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Monster',
+            name="Monster",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('treat_like', models.CharField(blank=True, max_length=50)),
-                ('description', models.TextField(max_length=5000)),
-                ('image', models.ImageField(blank=True, upload_to='monsters')),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='monsters', to='users.customuser')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("treat_like", models.CharField(blank=True, max_length=50)),
+                ("description", models.TextField(max_length=5000)),
+                ("image", models.ImageField(blank=True, upload_to="monsters")),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="monsters",
+                        to="users.customuser",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='SpecialAttack',
+            name="SpecialAttack",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('description', models.TextField(max_length=1000)),
-                ('monster', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='special_attacks', to='monsters.monster')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("description", models.TextField(max_length=1000)),
+                (
+                    "monster",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="special_attacks",
+                        to="monsters.monster",
+                    ),
+                ),
             ],
         ),
     ]
