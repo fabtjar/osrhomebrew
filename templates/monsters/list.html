@@ -2,7 +2,12 @@
 
 {% block content %}
     <h1>Monsters</h1>
-    <p class="mb-2"><a href="{% url 'monsters-monster_create' %}">Create Monster</a></p>
+    {% if user.is_authenticated %}
+        <p class="mb-2">
+            <a href="{% url 'monsters-monster_author_list' user %}">My Monster List</a> |
+            <a href="{% url 'monsters-monster_create' %}">Create Monster</a>
+        </p>
+    {% endif %}
     {% include 'monsters/includes/monster_list.html' %}
     <a href="{% url 'pages-home' %}">Home</a>
 {% endblock %}
