@@ -52,7 +52,7 @@ def monster_create(request):
     else:
         form = MonsterForm()
 
-    return render(request, "monsters/edit.html", {"form": form})
+    return render(request, "monsters/create.html", {"form": form})
 
 
 def monster_delete(request, monster_id):
