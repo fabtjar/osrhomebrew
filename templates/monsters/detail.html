@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <h1 class="text-center">{{ monster.name }}</h1>
         <div class="col-lg-6">
-            <p>Author: <a href="{% url 'monster_author_list' monster.author %}">{{ monster.owner }}</a></p>
+            <p>Author: <a href="{% url 'monsters-monster_author_list' monster.author %}">{{ monster.author }}</a></p>
             {% if monster.treat_like %}
                 <p>Treat like: {{ monster.treat_like }}</p>
             {% endif %}
@@ -30,7 +30,10 @@
         {% endif %}
     </div>
     {% if monster.author == user %}
-        <a class="btn btn-secondary mb-2" href="{% url 'monster_edit' monster.id %}">Edit</a>
+        <p>
+            <a href="{% url 'monsters-monster_edit' monster.id %}">Edit</a> |
+            <a href="{% url 'monsters-monster_edit' monster.id %}">Delete</a>
+        </p>
     {% endif %}
-    <a class="btn btn-primary mb-2" href="{% url 'monster_list' %}">Monster List</a>
+    <p>Back to <a href="{% url 'monsters-monster_list' %}">Monster List</a></p>
 {% endblock %}

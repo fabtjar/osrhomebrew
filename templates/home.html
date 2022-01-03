@@ -7,8 +7,10 @@
 
         {% if user.is_authenticated %}
             <p>Signed in as <span class="fw-bold">{{ user.username }}</span>.</p>
+        {% else %}
+            <p>You are not logged in.</p>
         {% endif %}
 
-        <a class="btn btn-primary" href="{% url 'monster_list' %}">Monster List</a>
+        <a href="{% url 'monsters-monster_list' %}">Monster List</a>
     </div>
 {% endblock %}

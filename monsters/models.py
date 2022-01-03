@@ -13,7 +13,7 @@ class Monster(models.Model):
     )
 
     def get_absolute_url(self):
-        return reverse("monster_detail", kwargs={"monster_id": self.id})
+        return reverse("monsters-monster_detail", kwargs={"monster_id": self.id})
 
     def __str__(self):
         return self.name

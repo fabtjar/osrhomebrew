@@ -5,17 +5,17 @@ from django.shortcuts import get_object_or_404, render
 from .models import Monster
 
 
-def list_all(request):
+def monster_list(request):
     monsters = Monster.objects.all()
-    return render(request, "monsters/list_all.html", {"monsters": monsters})
+    return render(request, "monsters/list.html", {"monsters": monsters})
 
 
-def details(request, monster_id):
+def monster_detail(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
-    return render(request, "monsters/details.html", {"monster": monster})
+    return render(request, "monsters/detail.html", {"monster": monster})
 
 
-def edit(request, monster_id):
+def monster_edit(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
 
     if monster.author != request.user:
@@ -24,6 +24,6 @@ def edit(request, monster_id):
     return render(request, "monsters/edit.html", {"monster": monster})
 
 
-def author_list(request, username):
+def monster_author_list(request, username):
     user = get_object_or_404(get_user_model(), username=username)
-    return render(request, "monsters/user_list.html", {"user": user})
+    return render(request, "monsters/author_list.html", {"user": user})
