@@ -32,7 +32,7 @@ def monster_edit(request, monster_id):
     else:
         form = MonsterForm(instance=monster)
 
-    return render(request, "monsters/edit.html", {"monster": monster, "form": form})
+    return render(request, "monsters/edit.html", {"form": form})
 
 
 def monster_author_list(request, username):
