@@ -24,7 +24,7 @@ def monster_edit(request, monster_id):
         raise PermissionDenied
 
     if request.method == "POST":
-        form = MonsterForm(request.POST, instance=monster)
+        form = MonsterForm(request.POST, request.FILES, instance=monster)
         if form.is_valid():
             monster = form.save()
             messages.success(request, "Monster updated.")
