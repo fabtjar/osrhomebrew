@@ -4,3 +4,4 @@ django-crispy-forms==1.13.0
 crispy-bootstrap5==0.6
 Pillow==8.4.0
 pip-tools==6.4.0
+black==21.12b0
