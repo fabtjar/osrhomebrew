@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ user }}'s Monsters</h1>
-    {% include 'monsters/includes/monster_list.html' with monsters=user.monsters.all %}
+    <h1>{{ author }}'s Monsters</h1>
+    {% include 'monsters/includes/monster_list.html' with monsters=author.monsters.all %}
     <p>Back to <a href="{% url 'monsters-monster_list' %}">Monster List</a></p>
 {% endblock %}
