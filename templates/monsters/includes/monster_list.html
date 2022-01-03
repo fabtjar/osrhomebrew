@@ -18,7 +18,7 @@
                 <a href="{{ monster.get_absolute_url }}">View</a>
                 {% if monster.author == user %}
                     | <a href="{% url 'monsters-monster_edit' monster.id %}">Edit</a>
-                    | <a href="{% url 'monsters-monster_edit' monster.id %}">Delete</a>
+                    | <a href="{% url 'monsters-monster_delete' monster.id %}">Delete</a>
                 {% endif %}
             </p>
         </div>

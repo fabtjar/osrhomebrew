@@ -34,7 +34,7 @@
     {% if monster.author == user %}
         <p>
             <a href="{% url 'monsters-monster_edit' monster.id %}">Edit</a> |
-            <a href="{% url 'monsters-monster_edit' monster.id %}">Delete</a>
+            <a href="{% url 'monsters-monster_delete' monster.id %}">Delete</a>
         </p>
     {% endif %}
     <p>Back to <a href="{% url 'monsters-monster_list' %}">Monster List</a></p>

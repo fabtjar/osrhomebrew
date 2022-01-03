@@ -53,3 +53,17 @@ def monster_create(request):
         form = MonsterForm()
 
     return render(request, "monsters/edit.html", {"form": form})
+
+
+def monster_delete(request, monster_id):
+    monster = get_object_or_404(Monster, id=monster_id)
+
+    if monster.author != request.user:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        monster.delete()
+        messages.success(request, "Monster deleted.")
+        return redirect("monsters-monster_list")
+
+    return render(request, "monsters/delete.html", {"monster": monster})
