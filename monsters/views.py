@@ -38,3 +38,18 @@ def monster_edit(request, monster_id):
 def monster_author_list(request, username):
     author = get_object_or_404(get_user_model(), username=username)
     return render(request, "monsters/author_list.html", {"author": author})
+
+
+def monster_create(request):
+    if request.method == "POST":
+        form = MonsterForm(request.POST, request.FILES)
+        if form.is_valid():
+            monster = form.save(commit=False)
+            monster.author = request.user
+            monster.save()
+            messages.success(request, "Monster created.")
+            return redirect(monster)
+    else:
+        form = MonsterForm()
+
+    return render(request, "monsters/edit.html", {"form": form})

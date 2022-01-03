@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Monsters</h1>
+    <p class="mb-2"><a href="{% url 'monsters-monster_create' %}">Create Monster</a></p>
     {% include 'monsters/includes/monster_list.html' %}
     <a href="{% url 'pages-home' %}">Home</a>
 {% endblock %}
