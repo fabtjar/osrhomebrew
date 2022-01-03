@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
     <h1>Edit {{ monster.name }}</h1>
-    <a class="btn btn-secondary mb-2" href="{{ monster.get_absolute_url }}">Cancel</a>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-info">Update</button>
+    </form>
 {% endblock %}

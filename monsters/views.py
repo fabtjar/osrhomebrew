@@ -1,7 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 
+from .forms import MonsterForm
 from .models import Monster
 
 
@@ -21,7 +23,16 @@ def monster_edit(request, monster_id):
     if monster.author != request.user:
         raise PermissionDenied
 
-    return render(request, "monsters/edit.html", {"monster": monster})
+    if request.method == "POST":
+        form = MonsterForm(request.POST, instance=monster)
+        if form.is_valid():
+            monster = form.save()
+            messages.success(request, "Monster updated.")
+            return redirect(monster)
+    else:
+        form = MonsterForm(instance=monster)
+
+    return render(request, "monsters/edit.html", {"monster": monster, "form": form})
 
 
 def monster_author_list(request, username):
