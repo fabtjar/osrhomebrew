@@ -2,6 +2,10 @@
 
 {% block content %}
     <h1>{{ author }}'s Monsters</h1>
-    {% include 'monsters/includes/monster_list.html' with monsters=author.monsters.all %}
+    {% if monsters %}
+        {% include 'monsters/includes/monster_list.html' %}
+    {% else %}
+        <p>No monsters.</p>
+    {% endif %}
     <p>Back to <a href="{% url 'monsters-monster_list' %}">Monster List</a></p>
 {% endblock %}

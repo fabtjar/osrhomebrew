@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 
 from .forms import MonsterForm
@@ -8,7 +9,10 @@ from .models import Monster
 
 
 def monster_list(request):
-    monsters = Monster.objects.all()
+    paginator = Paginator(Monster.objects.all(), 10)
+    page_number = request.GET.get("page")
+    monsters = paginator.get_page(page_number)
+
     return render(request, "monsters/list.html", {"monsters": monsters})
 
 
@@ -37,7 +41,14 @@ def monster_edit(request, monster_id):
 
 def monster_author_list(request, username):
     author = get_object_or_404(get_user_model(), username=username)
-    return render(request, "monsters/author_list.html", {"author": author})
+
+    paginator = Paginator(author.monsters.all(), 10)
+    page_number = request.GET.get("page")
+    monsters = paginator.get_page(page_number)
+
+    return render(
+        request, "monsters/author_list.html", {"author": author, "monsters": monsters}
+    )
 
 
 def monster_create(request):
