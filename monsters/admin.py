@@ -5,6 +5,7 @@ from .models import Monster, SpecialAttack
 
 class SpecialAttackInline(admin.StackedInline):
     model = SpecialAttack
+    extra = 0
 
 
 @admin.register(Monster)
