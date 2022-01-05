@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 
-from .forms import MonsterForm
+from .forms import MonsterForm, SpecialAttackFormSet
 from .models import Monster
 
 
@@ -29,14 +29,24 @@ def monster_edit(request, monster_id):
 
     if request.method == "POST":
         form = MonsterForm(request.POST, request.FILES, instance=monster)
-        if form.is_valid():
+        formset = SpecialAttackFormSet(request.POST, instance=monster)
+        if form.is_valid() and formset.is_valid():
             monster = form.save()
+            formset.save()
             messages.success(request, "Monster updated.")
             return redirect(monster)
     else:
         form = MonsterForm(instance=monster)
+        formset = SpecialAttackFormSet(instance=monster)
 
-    return render(request, "monsters/edit.html", {"form": form})
+    return render(
+        request,
+        "monsters/edit.html",
+        {
+            "form": form,
+            "formset": formset,
+        },
+    )
 
 
 def monster_author_list(request, username):
@@ -56,14 +66,25 @@ def monster_create(request):
         form = MonsterForm(request.POST, request.FILES)
         if form.is_valid():
             monster = form.save(commit=False)
-            monster.author = request.user
-            monster.save()
-            messages.success(request, "Monster created.")
-            return redirect(monster)
+            formset = SpecialAttackFormSet(request.POST, instance=monster)
+            if formset.is_valid():
+                monster.author = request.user
+                monster.save()
+                formset.save()
+                messages.success(request, "Monster created.")
+                return redirect(monster)
     else:
         form = MonsterForm()
+        formset = SpecialAttackFormSet()
 
-    return render(request, "monsters/create.html", {"form": form})
+    return render(
+        request,
+        "monsters/create.html",
+        {
+            "form": form,
+            "formset": formset,
+        },
+    )
 
 
 def monster_delete(request, monster_id):

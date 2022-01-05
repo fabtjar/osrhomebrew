@@ -9,7 +9,4 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("monsters/", include("monsters.urls")),
     path("", include("pages.urls")),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
