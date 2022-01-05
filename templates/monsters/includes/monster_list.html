@@ -2,7 +2,7 @@
     <div class="card mb-2">
         <div class="card-header">
             <span class="fw-bold">{{ monster.name }} &middot;</span>
-            <span class="fw-light">by {{ monster.author }}</span>
+            <span class="fw-light">by {{ monster.author }} | {{ monster.created_date }}</span>
         </div>
         <div class="card-body">
             <p class="card-text">{{ monster.get_short_description }}</p>
