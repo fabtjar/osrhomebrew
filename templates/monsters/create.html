@@ -13,7 +13,9 @@
         <div id="formsets">
             {{ formset|crispy }}
         </div>
-        <a class="btn btn-primary d-block" onclick="addEmptyForm();">Extra special attack</a>
+        <div class="text-center">
+            <a class="btn btn-outline-primary" onclick="addEmptyForm();">Add another special attack</a>
+        </div>
         <hr>
         {% block form_button %}
             <button type="submit" class="btn btn-success">Save</button>

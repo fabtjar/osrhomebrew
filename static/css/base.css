@@ -1,0 +1,6 @@
+#formsets .multiField {
+    border: 1px solid #999999;
+    padding: 1rem 2rem;
+    margin-bottom: 1rem;
+    background: white;
+}
