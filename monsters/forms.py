@@ -14,4 +14,6 @@ SpecialAttackFormSet = inlineformset_factory(
     SpecialAttack,
     fields=("name", "description"),
     extra=1,
+    max_num=4,
+    validate_max=True,
 )
