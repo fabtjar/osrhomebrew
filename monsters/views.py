@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
@@ -61,6 +62,7 @@ def monster_author_list(request, username):
     )
 
 
+@login_required
 def monster_create(request):
     if request.method == "POST":
         form = MonsterForm(request.POST, request.FILES)
