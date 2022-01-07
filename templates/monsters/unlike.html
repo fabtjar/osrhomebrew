@@ -5,8 +5,9 @@
 {% block content %}
     <h1>Unlike {{ monster }}</h1>
     <p>Are you sure you want to unlike "{{ monster }}"?</p>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post">
         {% csrf_token %}
+        <input type="hidden" name="referer" value="{{ referer }}">
         <button type="submit" class="btn btn-danger">Unlike</button>
     </form>
 {% endblock %}

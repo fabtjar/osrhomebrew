@@ -5,6 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 
+from utils.requests import get_host_referer
 from .forms import MonsterForm, SpecialAttackFormSet
 from .models import Monster
 
@@ -123,9 +124,16 @@ def monster_like(request, monster_id):
     if request.method == "POST":
         request.user.liked_monsters.add(monster)
         messages.success(request, "Monster liked.")
-        return redirect(monster)
+        return redirect(request.POST.get("referer") or monster)
 
-    return render(request, "monsters/like.html", {"monster": monster})
+    return render(
+        request,
+        "monsters/like.html",
+        {
+            "monster": monster,
+            "referer": get_host_referer(request),
+        },
+    )
 
 
 @login_required
@@ -139,6 +147,13 @@ def monster_unlike(request, monster_id):
     if request.method == "POST":
         request.user.liked_monsters.remove(monster)
         messages.success(request, "Monster unliked.")
-        return redirect(monster)
+        return redirect(request.POST.get("referer") or monster)
 
-    return render(request, "monsters/unlike.html", {"monster": monster})
+    return render(
+        request,
+        "monsters/unlike.html",
+        {
+            "monster": monster,
+            "referer": get_host_referer(request),
+        },
+    )
