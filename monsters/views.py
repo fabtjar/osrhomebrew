@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import BadRequest
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 
@@ -48,7 +48,7 @@ def monster_edit(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
 
     if monster.author != request.user:
-        raise PermissionDenied
+        raise BadRequest("Cannot edit another user's monster.")
 
     if request.method == "POST":
         form = MonsterForm(request.POST, request.FILES, instance=monster)
@@ -103,7 +103,7 @@ def monster_delete(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
 
     if monster.author != request.user:
-        raise PermissionDenied
+        raise BadRequest("Cannot delete another user's monster.")
 
     if request.method == "POST":
         monster.delete()
@@ -118,8 +118,7 @@ def monster_like(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
 
     if request.user.liked_monsters.contains(monster):
-        messages.error(request, "Monster already liked.")
-        return redirect(monster)
+        raise BadRequest("Cannot like a monster multiple times.")
 
     if request.method == "POST":
         request.user.liked_monsters.add(monster)
@@ -141,8 +140,7 @@ def monster_unlike(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
 
     if not request.user.liked_monsters.contains(monster):
-        messages.error(request, "Monster already unliked.")
-        return redirect(monster)
+        raise BadRequest("Can only unlike monsters you already like.")
 
     if request.method == "POST":
         request.user.liked_monsters.remove(monster)
