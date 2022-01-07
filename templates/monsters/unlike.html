@@ -7,7 +7,9 @@
     <p>Are you sure you want to unlike "{{ monster }}"?</p>
     <form method="post">
         {% csrf_token %}
-        <input type="hidden" name="referer" value="{{ referer }}">
+        {% if referer %}
+            <input type="hidden" name="referer" value="{{ referer }}">
+        {% endif %}
         <button type="submit" class="btn btn-danger">Unlike</button>
     </form>
 {% endblock %}
