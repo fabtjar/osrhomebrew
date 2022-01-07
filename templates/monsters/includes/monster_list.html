@@ -3,6 +3,9 @@
         <div class="card-header">
             <span class="fw-bold">{{ monster.name }} &middot;</span>
             <span class="fw-light">by {{ monster.author }} | {{ monster.created_date }}</span>
+            {% if monster in request.user.liked_monsters.all %}
+                <span class="badge rounded-pill bg-success">Liked</span>
+            {% endif %}
         </div>
         <div class="card-body">
             <p class="card-text">{{ monster.get_short_description }}</p>
@@ -16,6 +19,11 @@
         <div class="card-footer text-center">
             <p class="m-0">
                 <a href="{{ monster.get_absolute_url }}">View</a>
+                {% if monster in request.user.liked_monsters.all %}
+                    | <a href="{% url 'monsters-monster_unlike' monster.id %}">Unlike</a>
+                {% else %}
+                    | <a href="{% url 'monsters-monster_like' monster.id %}">Like</a>
+                {% endif %}
                 {% if monster.author == user %}
                     | <a href="{% url 'monsters-monster_edit' monster.id %}">Edit</a>
                     | <a href="{% url 'monsters-monster_delete' monster.id %}">Delete</a>

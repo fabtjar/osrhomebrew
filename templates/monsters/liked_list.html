@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Liked Monsters</h1>
+    {% if monsters %}
+        {% include 'monsters/includes/monster_list.html' %}
+    {% else %}
+        <p>No monsters.</p>
+    {% endif %}
+    <p>Back to <a href="{% url 'monsters-monster_list' %}">Monster List</a></p>
+{% endblock %}

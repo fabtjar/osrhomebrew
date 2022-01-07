@@ -17,6 +17,27 @@ def monster_list(request):
     return render(request, "monsters/list.html", {"monsters": monsters})
 
 
+def monster_author_list(request, username):
+    author = get_object_or_404(get_user_model(), username=username)
+
+    paginator = Paginator(author.monsters.all(), 10)
+    page_number = request.GET.get("page")
+    monsters = paginator.get_page(page_number)
+
+    return render(
+        request, "monsters/author_list.html", {"author": author, "monsters": monsters}
+    )
+
+
+@login_required
+def monster_liked_list(request):
+    paginator = Paginator(request.user.liked_monsters.all(), 10)
+    page_number = request.GET.get("page")
+    monsters = paginator.get_page(page_number)
+
+    return render(request, "monsters/liked_list.html", {"monsters": monsters})
+
+
 def monster_detail(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
     return render(request, "monsters/detail.html", {"monster": monster})
@@ -47,18 +68,6 @@ def monster_edit(request, monster_id):
             "form": form,
             "formset": formset,
         },
-    )
-
-
-def monster_author_list(request, username):
-    author = get_object_or_404(get_user_model(), username=username)
-
-    paginator = Paginator(author.monsters.all(), 10)
-    page_number = request.GET.get("page")
-    monsters = paginator.get_page(page_number)
-
-    return render(
-        request, "monsters/author_list.html", {"author": author, "monsters": monsters}
     )
 
 
@@ -101,3 +110,35 @@ def monster_delete(request, monster_id):
         return redirect("monsters-monster_list")
 
     return render(request, "monsters/delete.html", {"monster": monster})
+
+
+@login_required
+def monster_like(request, monster_id):
+    monster = get_object_or_404(Monster, id=monster_id)
+
+    if request.user.liked_monsters.contains(monster):
+        messages.error(request, "Monster already liked.")
+        return redirect(monster)
+
+    if request.method == "POST":
+        request.user.liked_monsters.add(monster)
+        messages.success(request, "Monster liked.")
+        return redirect(monster)
+
+    return render(request, "monsters/like.html", {"monster": monster})
+
+
+@login_required
+def monster_unlike(request, monster_id):
+    monster = get_object_or_404(Monster, id=monster_id)
+
+    if not request.user.liked_monsters.contains(monster):
+        messages.error(request, "Monster already unliked.")
+        return redirect(monster)
+
+    if request.method == "POST":
+        request.user.liked_monsters.remove(monster)
+        messages.success(request, "Monster unliked.")
+        return redirect(monster)
+
+    return render(request, "monsters/unlike.html", {"monster": monster})

@@ -3,10 +3,10 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <h1>Delete {{ monster }}</h1>
-    <p>Are you sure you want to delete "{{ monster }}"?</p>
+    <h1>Unlike {{ monster }}</h1>
+    <p>Are you sure you want to unlike "{{ monster }}"?</p>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Confirm</button>
+        <button type="submit" class="btn btn-danger">Unlike</button>
     </form>
 {% endblock %}
