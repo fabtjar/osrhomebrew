@@ -117,8 +117,11 @@ def monster_delete(request, monster_id):
 def monster_like(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
 
+    referer = get_host_referer(request)
+
     if request.user.liked_monsters.contains(monster):
-        raise BadRequest("Cannot like a monster multiple times.")
+        messages.error(request, "Cannot like a monster multiple times.")
+        return redirect(referer or monster)
 
     if request.method == "POST":
         request.user.liked_monsters.add(monster)
@@ -130,7 +133,7 @@ def monster_like(request, monster_id):
         "monsters/like.html",
         {
             "monster": monster,
-            "referer": get_host_referer(request),
+            "referer": referer,
         },
     )
 
@@ -139,8 +142,11 @@ def monster_like(request, monster_id):
 def monster_unlike(request, monster_id):
     monster = get_object_or_404(Monster, id=monster_id)
 
+    referer = get_host_referer(request)
+
     if not request.user.liked_monsters.contains(monster):
-        raise BadRequest("Can only unlike monsters you already like.")
+        messages.error(request, "Can only unlike monsters you already like.")
+        return redirect(referer or monster)
 
     if request.method == "POST":
         request.user.liked_monsters.remove(monster)
@@ -152,6 +158,6 @@ def monster_unlike(request, monster_id):
         "monsters/unlike.html",
         {
             "monster": monster,
-            "referer": get_host_referer(request),
+            "referer": referer,
         },
     )
