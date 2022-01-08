@@ -15,8 +15,37 @@
 <div class="container">
     <nav class="navbar navbar-expand navbar-light border-bottom mb-2">
         <div class="container-fluid">
-            <div class="flex-fill">
+            <div>
                 <a class="navbar-brand" href="{% url 'pages-home' %}">OSR Homebrew</a>
+            </div>
+            <div class="flex-fill d-block">
+                {% if user.is_authenticated %}
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Monsters
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'monsters-monster_liked_list' %}">
+                                        My monsters
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'monsters-monster_author_list' user %}">
+                                        Liked monsters
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'monsters-monster_create' %}">
+                                        New monster
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                {% endif %}
             </div>
             {% if user.is_authenticated %}
                 <ul class="navbar-nav">
