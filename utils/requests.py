@@ -10,6 +10,7 @@ def get_host_referer(request):
 
     parsed_url = urlparse(referer)
 
+    # Avoid login URL as that is most likely a redirect. Also avoids a redirect loop.
     if parsed_url.path == reverse(settings.LOGIN_URL):
         return
 
