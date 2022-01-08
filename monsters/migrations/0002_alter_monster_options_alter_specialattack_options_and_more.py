@@ -7,33 +7,37 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('monsters', '0001_initial'),
+        ("monsters", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='monster',
-            options={'ordering': ('-created_date',)},
+            name="monster",
+            options={"ordering": ("-created_date",)},
         ),
         migrations.AlterModelOptions(
-            name='specialattack',
-            options={'ordering': ('created_date',)},
+            name="specialattack",
+            options={"ordering": ("created_date",)},
         ),
         migrations.AddField(
-            model_name='monster',
-            name='created_date',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="monster",
+            name="created_date",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='monster',
-            name='modified_date',
+            model_name="monster",
+            name="modified_date",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='specialattack',
-            name='created_date',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="specialattack",
+            name="created_date",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
     ]
