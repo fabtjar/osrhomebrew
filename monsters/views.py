@@ -1,11 +1,14 @@
+from urllib.parse import urlparse
+
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import BadRequest
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
 
-from utils.requests import get_host_referer
 from .forms import MonsterForm, SpecialAttackFormSet
 from .models import Monster
 
@@ -82,6 +85,7 @@ def monster_create(request):
             if formset.is_valid():
                 monster.author = request.user
                 monster.save()
+                formset.save()
                 formset.save()
                 messages.success(request, "Monster created.")
                 return redirect(monster)
@@ -161,3 +165,17 @@ def monster_unlike(request, monster_id):
             "referer": referer,
         },
     )
+
+
+def get_host_referer(request):
+    """Return the referer URL if it is of the requested host."""
+    referer = request.META.get("HTTP_REFERER")
+
+    parsed_url = urlparse(referer)
+
+    # Avoid login URL as that is most likely a redirect. Also avoids a redirect loop.
+    if parsed_url.path == reverse(settings.LOGIN_URL):
+        return
+
+    if parsed_url.netloc == request.get_host():
+        return referer
