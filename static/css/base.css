@@ -4,3 +4,8 @@
     margin-bottom: 1rem;
     background: white;
 }
+
+.social-link {
+    color: inherit;
+    text-decoration: none;
+}
