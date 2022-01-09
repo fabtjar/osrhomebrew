@@ -33,12 +33,17 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'monsters-monster_liked_list' %}">
-                                        My monsters
+                                    <a class="dropdown-item" href="{% url 'monsters-monster_list' %}">
+                                        All monsters
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{% url 'monsters-monster_author_list' user %}">
+                                        My monsters
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'monsters-monster_liked_list' %}">
                                         Liked monsters
                                     </a>
                                 </li>
