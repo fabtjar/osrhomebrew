@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 
+{% block header_class_extra %}mb-auto{% endblock header_class_extra %}
+
 {% block content %}
-    <div class="text-center mt-3">
-        <h1>OSR Homebrew</h1>
-        <p>A place to share OSR homebrew content.</p>
-
-        {% if user.is_authenticated %}
-            <p>Signed in as <span class="fw-bold">{{ user.username }}</span>.</p>
-        {% else %}
-            <p>You are not logged in.</p>
-        {% endif %}
-
-        <a href="{% url 'monsters-monster_list' %}">Monster List</a>
+    <div class="">
+        <div class="text-center mx-auto" style="width: 24rem;">
+            <h1>OSR Homebrew</h1>
+            <p class="lead">A place to share homebrew content aimed at lovers of Old School Renaissance.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{% url 'monsters-monster_list' %}">Monster List</a>
+            </p>
+        </div>
     </div>
 {% endblock %}
