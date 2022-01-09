@@ -83,16 +83,14 @@ def monster_edit(request, monster_id):
 def monster_create(request):
     if request.method == "POST":
         form = MonsterForm(request.POST, request.FILES)
-        if form.is_valid():
+        formset = SpecialAttackFormSet(request.POST, instance=form.instance)
+        if form.is_valid() and formset.is_valid():
             monster = form.save(commit=False)
-            formset = SpecialAttackFormSet(request.POST, instance=monster)
-            if formset.is_valid():
-                monster.author = request.user
-                monster.save()
-                formset.save()
-                formset.save()
-                messages.success(request, "Monster created.")
-                return redirect(monster)
+            monster.author = request.user
+            monster.save()
+            formset.save()
+            messages.success(request, "Monster created.")
+            return redirect(monster)
     else:
         form = MonsterForm()
         formset = SpecialAttackFormSet()
