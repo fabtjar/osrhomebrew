@@ -136,6 +136,12 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+ACCOUNT_FORMS = {
+    "signup": "accounts.forms.CustomSignupForm",
+    "login": "accounts.forms.CustomLoginForm",
+    "reset_password": "accounts.forms.CustomResetPasswordForm",
+    "change_password": "accounts.forms.CustomSetPasswordForm",
+}
 
 MESSAGE_TAGS = {
     messages.DEBUG: "secondary",
