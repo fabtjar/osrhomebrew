@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Liked Monsters</h1>
+    <h1>{{ author }}'s liked Monsters</h1>
     {% if monsters %}
         {% include 'monsters/includes/monster_list.html' %}
     {% else %}

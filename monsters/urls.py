@@ -16,7 +16,11 @@ urlpatterns = [
     path(
         "<int:monster_id>/unlike/", views.monster_unlike, name="monsters-monster_unlike"
     ),
-    path("liked/", views.monster_liked_list, name="monsters-monster_liked_list"),
+    path(
+        "liked/<username>/",
+        views.monster_liked_list,
+        name="monsters-monster_liked_list",
+    ),
     # Keep last as it's a string arg.
     path("<username>/", views.monster_author_list, name="monsters-monster_author_list"),
 ]

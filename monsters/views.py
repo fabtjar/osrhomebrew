@@ -34,12 +34,16 @@ def monster_author_list(request, username):
 
 
 @login_required
-def monster_liked_list(request):
-    paginator = Paginator(request.user.liked_monsters.all(), 10)
+def monster_liked_list(request, username):
+    author = get_object_or_404(get_user_model(), username=username)
+
+    paginator = Paginator(author.liked_monsters.all(), 10)
     page_number = request.GET.get("page")
     monsters = paginator.get_page(page_number)
 
-    return render(request, "monsters/liked_list.html", {"monsters": monsters})
+    return render(
+        request, "monsters/liked_list.html", {"author": author, "monsters": monsters}
+    )
 
 
 def monster_detail(request, monster_id):

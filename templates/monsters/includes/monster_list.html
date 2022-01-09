@@ -2,7 +2,10 @@
     <div class="card mb-2">
         <div class="card-header">
             <span class="fw-bold">{{ monster.name }} &middot;</span>
-            <span class="fw-light">by {{ monster.author }} | {{ monster.created_date }}</span>
+            <span class="fw-light">
+                by <a href="{% url 'users-profile' monster.author %}" class="quiet-link">
+                    {{ monster.author }}</a> | {{ monster.created_date|date }}
+            </span>
             {% if monster in request.user.liked_monsters.all %}
                 <span class="badge rounded-pill bg-success">Liked</span>
             {% endif %}

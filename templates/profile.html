@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ author }}'s Profile</h1>
+    <div class="mb-4">
+        <a href="{% url 'monsters-monster_author_list' author.username %}">Created monsters</a> |
+        <a href="{% url 'monsters-monster_liked_list' author.username %}">Liked monsters</a>
+    </div>
+    {% if author == request.user %}
+        <div>
+            <a href="{% url 'monsters-monster_create' %}" class="btn btn-primary">New monsters</a>
+        </div>
+    {% endif %}
+{% endblock %}
