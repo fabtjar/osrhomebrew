@@ -3,6 +3,7 @@ from allauth.account.forms import (
     LoginForm,
     ResetPasswordForm,
     ChangePasswordForm,
+    ResetPasswordKeyForm,
 )
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, HTML
@@ -44,6 +45,17 @@ class CustomResetPasswordForm(ResetPasswordForm):
 
         self.helper.add_input(
             Submit("submit", "Reset my password", css_class="btn-success w-100")
+        )
+
+
+class CustomResetPasswordKeyForm(ResetPasswordKeyForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
+        self.helper.add_input(
+            Submit("submit", "Change password", css_class="btn-success w-100")
         )
 
 
