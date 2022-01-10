@@ -123,8 +123,11 @@ EMAIL_BACKEND = env.str("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBa
 DEFAULT_FROM_EMAIL = "fabianjarrett@gmail.com"
 EMAIL_HOST = "smtp.sendgrid.net"
 EMAIL_HOST_USER = "apikey"
-EMAIL_PORT = 465
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = (
+    "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"
+)
 
 ACCOUNT_EMAIL_REQUIRED = True
 
