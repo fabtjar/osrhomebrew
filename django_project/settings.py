@@ -1,7 +1,9 @@
 from pathlib import Path
 
+import sentry_sdk
 from django.contrib import messages
 from environs import Env
+from sentry_sdk.integrations.django import DjangoIntegration
 
 env = Env()
 env.read_env()
@@ -168,4 +170,11 @@ CLOUDINARY_STORAGE = {
 
 DEFAULT_FILE_STORAGE = env(
     "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
+)
+
+sentry_sdk.init(
+    dsn=env("SENTRY_DSN"),
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+    send_default_pii=True,
 )
