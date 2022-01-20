@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "crispy_forms",
     "crispy_bootstrap5",
-    "cloudinary_storage",
     # Local.
     "users.apps.UsersConfig",
     "monsters.apps.MonstersConfig",
@@ -161,12 +160,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "media/"
-
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": env("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": env("CLOUDINARY_API_KEY"),
-    "API_SECRET": env("CLOUDINARY_API_SECRET"),
-}
 
 DEFAULT_FILE_STORAGE = env(
     "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
