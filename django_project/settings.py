@@ -129,8 +129,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "fabianjarrett@gmail.com"
 
-ACCOUNT_EMAIL_REQUIRED = True
-
 LOGIN_URL = "account_login"
 LOGIN_REDIRECT_URL = "users-own_profile"
 
