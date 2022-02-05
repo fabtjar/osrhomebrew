@@ -1,7 +1,9 @@
 from pathlib import Path
 
+import sentry_sdk
 from django.contrib import messages
 from environs import Env
+from sentry_sdk.integrations.django import DjangoIntegration
 
 env = Env()
 env.read_env()
@@ -15,7 +17,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 
 DEBUG = env.bool("DEBUG", False)
 
-ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [".fabtjar.com", "localhost", "127.0.0.1"]
 
 # Application definition
 
@@ -33,7 +35,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "crispy_forms",
     "crispy_bootstrap5",
-    "cloudinary_storage",
     # Local.
     "users.apps.UsersConfig",
     "monsters.apps.MonstersConfig",
@@ -41,13 +42,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "django_project.urls"
@@ -121,14 +122,12 @@ AUTH_USER_MODEL = "users.CustomUser"
 SITE_ID = 1
 
 EMAIL_BACKEND = env.str("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "fabianjarrett@gmail.com"
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = "fabianjarrett@gmail.com"
-EMAIL_HOST = "smtp.sendgrid.net"
-EMAIL_HOST_USER = "apikey"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-ACCOUNT_EMAIL_REQUIRED = True
+DEFAULT_FROM_EMAIL = "fabianjarrett@gmail.com"
 
 LOGIN_URL = "account_login"
 LOGIN_REDIRECT_URL = "users-own_profile"
@@ -160,12 +159,13 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "media/"
 
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": env("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": env("CLOUDINARY_API_KEY"),
-    "API_SECRET": env("CLOUDINARY_API_SECRET"),
-}
-
 DEFAULT_FILE_STORAGE = env(
     "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
+)
+
+sentry_sdk.init(
+    dsn=env("SENTRY_DSN"),
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+    send_default_pii=True,
 )
