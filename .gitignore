@@ -1,6 +1,7 @@
 .idea
 .env
 db.sqlite3
+**/.DS_Store
 **/*.pyc
 media/
 staticfiles/
